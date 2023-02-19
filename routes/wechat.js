@@ -76,20 +76,20 @@ router.post("/checkToken", async (ctx, next) => {
     return (ctx.body = formatXMLString(ToUserName, FromUserName, normalReply));
   }
 
-  /** 首先给微信回复，以免超时（微信同步消息回复时间限制5s） */
-  ctx.body = "success";
-
   const { conversationId, parentMessageId } =
     (await getLastConversation(FromUserName)) || {};
+
+  /** 首先给微信回复，以免超时（微信同步消息回复时间限制5s） */
+  ctx.body = "success";
 
   const answer = await askQuestion(Content[0], conversationId, parentMessageId);
   setLastConversation(FromUserName, answer.conversationId, answer.id);
 
-  /** 客服消息向客户异步发送消息 */
-  sendCgiMessage(FromUserName, answer.text);
+  // /** 客服消息向客户异步发送消息 */
+  // sendCgiMessage(FromUserName, answer.text);
 
-  //   /** 返回时将发送者和被发送者对调 */
-  //   ctx.body = formatXMLString(ToUserName, FromUserName, answer.text);
+  /** 返回时将发送者和被发送者对调 */
+  ctx.body = formatXMLString(ToUserName, FromUserName, answer.text);
 });
 
 export default router;
