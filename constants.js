@@ -25,7 +25,7 @@ export const WECHAT_ACCESS_TOKEN = "wechat_access_token_key";
 export const MSG_EXPIRE_TIME = 3600;
 
 /** 微信获取 access_key 接口 */
-export const WECHAT_ACCESS_KEY_URL = " https://api.weixin.qq.com/cgi-bin/token";
+export const WECHAT_ACCESS_KEY_URL = "https://api.weixin.qq.com/cgi-bin/token";
 
 /** 微信客服消息调用接口 */
 export const WECHAT_CGI_URL =
