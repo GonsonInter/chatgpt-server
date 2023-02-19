@@ -22,10 +22,7 @@ export const WECHAT_USER_PFX = "wechat_user_id:";
 export const WECHAT_ACCESS_TOKEN = "wechat_access_token_key";
 
 /** redis 中消息的过期时间 */
-export const MSG_EXPIRE_TIME = 60 * 60;
-
-/** 微信 access_token 的失效时间（两小时），为了保险，少设置一分钟 */
-export const WECHAT_TOKEN_EXPIRE = 2 * 60 * 59;
+export const MSG_EXPIRE_TIME = 3600;
 
 /** 微信获取 access_key 接口 */
 export const WECHAT_ACCESS_KEY_URL = " https://api.weixin.qq.com/cgi-bin/token";
