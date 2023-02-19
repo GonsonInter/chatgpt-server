@@ -28,15 +28,19 @@ const validateWechatSignature = async (token, timestamp, nonce, signature) => {
  * 文档：https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html
  */
 const sendCgiMessage = async (toUserName, content) => {
+  const body = {
+    touser: toUserName,
+    msgtype: "text",
+    text: {
+      content,
+    },
+  };
+
+  console.log(JSON.stringify(body, null, 2));
+
   return await fetch(`${WECHAT_CGI_URL}?access_token=${WECHAT_TOKEN}`, {
     method: "POST",
-    body: {
-      touser: toUserName,
-      msgtype: "text",
-      text: {
-        content,
-      },
-    },
+    body,
   });
 };
 
