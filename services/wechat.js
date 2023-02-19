@@ -38,6 +38,8 @@ const getAccessToken = async () => {
   const existsToken = redisGet(WECHAT_ACCESS_TOKEN);
   if (existsToken) return existsToken;
 
+  console.log("1111", existsToken);
+
   const getToken = await fetch(
     `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
   );
@@ -51,7 +53,7 @@ const getAccessToken = async () => {
 };
 
 /**
- * 走微信客服像用户异步发送消息：
+ * 走微信客服向用户异步发送消息：
  * 文档：https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html
  */
 const sendCgiMessage = async (toUserName, content) => {
