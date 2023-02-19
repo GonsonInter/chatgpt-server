@@ -12,7 +12,7 @@ import {
   WECHAT_TOKEN_EXPIRE,
 } from "../constants.js";
 import config from "../config.js";
-import { redisGet, redisSet } from "../redis";
+import { redisGet, redisSet } from "../redis.js";
 
 const { APP_ID, APP_SECRET } = config;
 
