@@ -9,7 +9,6 @@ import {
   WECHAT_CGI_URL,
   WECHAT_ACCESS_TOKEN,
   WECHAT_ACCESS_KEY_URL,
-  WECHAT_TOKEN_EXPIRE,
 } from "../constants.js";
 import config from "../config.js";
 import { redisGet, redisSet } from "../redis.js";
