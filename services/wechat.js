@@ -5,10 +5,16 @@
 
 import crypto from "crypto";
 import fetch from "node-fetch";
-import { WECHAT_CGI_URL } from "../constants.js";
+import {
+  WECHAT_CGI_URL,
+  WECHAT_ACCESS_TOKEN,
+  WECHAT_ACCESS_KEY_URL,
+  WECHAT_TOKEN_EXPIRE,
+} from "../constants.js";
 import config from "../config.js";
+import { redisGet, redisSet } from "../redis";
 
-const { WECHAT_TOKEN } = config;
+const { APP_ID, APP_SECRET } = config;
 
 /** SHA1 加密方法 */
 const shasum = crypto.createHash("sha1");
@@ -21,6 +27,27 @@ const shasum = crypto.createHash("sha1");
  */
 const validateWechatSignature = async (token, timestamp, nonce, signature) => {
   return signature === shasum.update([token, timestamp, nonce].sort().join(""));
+};
+
+/**
+ * 获取微信的 access_token
+ * 发送请求时需要带上
+ * 文档：https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
+ */
+const getAccessToken = async () => {
+  const existsToken = redisGet(WECHAT_ACCESS_TOKEN);
+  if (existsToken) return existsToken;
+
+  const getToken = await fetch(
+    `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
+  );
+
+  console.log("获取 token:", getToken);
+
+  /** 缓存 微信 access_token */
+  redisSet(WECHAT_ACCESS_TOKEN, getToken, WECHAT_TOKEN_EXPIRE);
+
+  return getToken;
 };
 
 /**
@@ -38,7 +65,9 @@ const sendCgiMessage = async (toUserName, content) => {
 
   console.log(JSON.stringify(body, null, 2));
 
-  return await fetch(`${WECHAT_CGI_URL}?access_token=${WECHAT_TOKEN}`, {
+  const accessToken = await getAccessToken();
+
+  return await fetch(`${WECHAT_CGI_URL}?access_token=${accessToken}`, {
     method: "POST",
     body,
   });
