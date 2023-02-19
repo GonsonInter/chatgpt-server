@@ -88,6 +88,8 @@ router.post("/checkToken", async (ctx, next) => {
   /** 客服消息向客户异步发送消息 */
   sendCgiMessage(FromUserName, answer.text);
 
+  console.log("调用！！！！！");
+
   //   /** 返回时将发送者和被发送者对调 */
   //   ctx.body = formatXMLString(ToUserName, FromUserName, answer.text);
 });
