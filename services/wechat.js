@@ -38,14 +38,14 @@ const getAccessToken = async () => {
   const existsToken = await redisGet(WECHAT_ACCESS_TOKEN);
   if (existsToken) return existsToken;
 
-  const getToken = await fetch(
+  const { access_token } = await fetch(
     `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
   );
 
   /** 缓存 微信 access_token */
-  redisSet(WECHAT_ACCESS_TOKEN, getToken, WECHAT_TOKEN_EXPIRE);
+  redisSet(WECHAT_ACCESS_TOKEN, access_token, WECHAT_TOKEN_EXPIRE);
 
-  return getToken;
+  return access_token;
 };
 
 /**
