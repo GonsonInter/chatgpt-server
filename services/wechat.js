@@ -6,7 +6,9 @@
 import crypto from "crypto";
 import fetch from "node-fetch";
 import { WECHAT_CGI_URL } from "../constants.js";
-import { WECHAT_TOKEN } from "../config.js";
+import config from "../config.js";
+
+const { WECHAT_TOKEN } = config;
 
 /** SHA1 加密方法 */
 const shasum = crypto.createHash("sha1");
