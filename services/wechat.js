@@ -35,16 +35,12 @@ const validateWechatSignature = async (token, timestamp, nonce, signature) => {
  * 文档：https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
  */
 const getAccessToken = async () => {
-  const existsToken = redisGet(WECHAT_ACCESS_TOKEN);
+  const existsToken = await redisGet(WECHAT_ACCESS_TOKEN);
   if (existsToken) return existsToken;
-
-  console.log("1111", existsToken);
 
   const getToken = await fetch(
     `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
   );
-
-  console.log("获取 token:", getToken);
 
   /** 缓存 微信 access_token */
   redisSet(WECHAT_ACCESS_TOKEN, getToken, WECHAT_TOKEN_EXPIRE);
