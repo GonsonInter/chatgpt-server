@@ -42,6 +42,8 @@ const getAccessToken = async () => {
     `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
   );
 
+  console.log(res);
+
   const { access_token, expires_in } = res;
 
   /** 缓存 微信 access_token */
@@ -62,8 +64,6 @@ const sendCgiMessage = async (toUserName, content) => {
       content,
     },
   };
-
-  console.log(JSON.stringify(body, null, 2));
 
   const accessToken = await getAccessToken();
 
