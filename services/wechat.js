@@ -37,9 +37,11 @@ const getAccessToken = async () => {
   const existsToken = await redisGet(WECHAT_ACCESS_TOKEN);
   if (existsToken) return existsToken;
 
-  const res = await fetch(
-    `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
-  );
+  const res = await (
+    await fetch(
+      `${WECHAT_ACCESS_KEY_URL}?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
+    )
+  ).json();
 
   console.log(res);
 
