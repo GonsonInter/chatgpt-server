@@ -8,7 +8,7 @@ import getRawBody from "raw-body";
 import { validateWechatSignature, sendCgiMessage } from "../services/wechat.js";
 import {
   parseXMLAsync,
-  formatXMLString,
+  formatTextXMLString,
   replyTextMatchMessage,
 } from "../utils.js";
 import {
@@ -51,7 +51,7 @@ router.post("/checkToken", async (ctx, next) => {
   /** 处理事件 */
   if (MsgType[0] === "event") {
     if (Event[0] === "subscribe") {
-      return (ctx.body = formatXMLString(
+      return (ctx.body = formatTextXMLString(
         ToUserName,
         FromUserName,
         "感谢关注，可以发送消息了。"
@@ -61,7 +61,7 @@ router.post("/checkToken", async (ctx, next) => {
   }
 
   if (MsgType[0] !== "text") {
-    return (ctx.body = formatXMLString(
+    return (ctx.body = formatTextXMLString(
       ToUserName,
       FromUserName,
       "暂时不支持非文本类型。"
@@ -73,7 +73,7 @@ router.post("/checkToken", async (ctx, next) => {
 
   /** 如果匹配到关键字，直接回复内容 */
   if (normalReply) {
-    return (ctx.body = formatXMLString(ToUserName, FromUserName, normalReply));
+    return (ctx.body = formatTextXMLString(ToUserName, FromUserName, normalReply));
   }
 
   const { conversationId, parentMessageId } =
@@ -89,7 +89,7 @@ router.post("/checkToken", async (ctx, next) => {
   // sendCgiMessage(FromUserName, answer.text);
 
   /** 返回时将发送者和被发送者对调 */
-  ctx.body = formatXMLString(ToUserName, FromUserName, answer.text);
+  ctx.body = formatTextXMLString(ToUserName, FromUserName, answer.text);
 });
 
 export default router;

@@ -26,7 +26,7 @@ export const parseXMLAsync = (xml) => {
  * @param {*} to 接收方
  * @param {*} content 发送内容
  */
-export const formatXMLString = (from, to, content) => {
+export const formatTextXMLString = (from, to, content) => {
   return `<xml>
         <ToUserName><![CDATA[${to}]]></ToUserName>
         <FromUserName><![CDATA[${from}]]></FromUserName>
@@ -41,7 +41,7 @@ export const formatXMLString = (from, to, content) => {
  * @param {*} text 原消息
  * @returns 回复的消息
  */
-export const replyTextMatchMessage = await (text) => {
+export const replyTextMatchMessage = await function (text) {
   const dadTxtArr = [
     "谁是王子杰",
     "王子杰是谁",
