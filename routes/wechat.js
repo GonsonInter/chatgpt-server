@@ -73,7 +73,7 @@ router.post("/checkToken", async (ctx, next) => {
   const normalReply = await replyTextMatchMessage(Content[0]);
 
   /** 如果匹配到关键字，直接回复内容 */
-  if (normalReply) {
+  if (normalReply?.content) {
 
     switch (normalReply.type) {
       case 'text':
