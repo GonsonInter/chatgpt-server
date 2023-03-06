@@ -48,7 +48,7 @@ export const formatImageXMLString = (from, to, content) => {
         <ToUserName><![CDATA[${to}]]></ToUserName>
         <FromUserName><![CDATA[${from}]]></FromUserName>
         <CreateTime>${Date.now()}</CreateTime>
-        <MsgType><![CDATA[image]]></MsgType>
+        <MsgType><![CDATA[text]]></MsgType>
         <Content><![CDATA[${content}]]></Content>
     </xml>`;
 };
@@ -81,7 +81,12 @@ export const replyTextMatchMessage = async text => {
   const imgReg = /^\s*(生成)?图片[:：]/;
 
   if (imgReg.test(text)) {
-    const res = (await getImageByPrompt(text.replace(imgReg, ''))).data?.[0].url
-    return res
+    // const res = (await getImageByPrompt(text.replace(imgReg, ''))).data?.[0].url
+
+    const res = 'https://img-blog.csdnimg.cn/05e42f565b944bd9b30a7a2200262c2e.png'
+    return {
+      type: 'image',
+      content: res
+    }
   }
 };
