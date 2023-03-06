@@ -7,7 +7,7 @@ import config from '../config.js'
 import fetch from 'node-fetch'
 import { OPENAI_IMAGE_URL } from '../constants.js'
 
-const { OPENAI_API_KEY } = config
+const { OPENAI_API_KEY, mock } = config
 
 /**
  * 生成图片
@@ -17,20 +17,20 @@ const { OPENAI_API_KEY } = config
  */
 const getImageByPrompt = async (prompt, number = 1, size = "512x512") => {
   try {
-    const res = await fetch(OPENAI_IMAGE_URL, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
-      },
-      body: {
-        prompt,
-        n: number,
-        size
-      }
-    })
+    // const res = await fetch(OPENAI_IMAGE_URL, {
+    //   method: 'post',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `Bearer ${OPENAI_API_KEY}`
+    //   },
+    //   body: {
+    //     prompt,
+    //     n: number,
+    //     size
+    //   }
+    // })
 
-    return await res.json
+    return await mock
   } catch (e) {
     return e
   }

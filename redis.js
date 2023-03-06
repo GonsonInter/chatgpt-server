@@ -5,11 +5,11 @@
 import redis from "redis";
 import { REDIS_CONF, MSG_EXPIRE_TIME } from "./constants.js";
 
-// // 创建客户端
-// const redisClient = redis.createClient(REDIS_CONF.port, REDIS_CONF.host);
-// redisClient.on("message", (msg) => {
-//   console.log(">>>>>>>>>>>>>>> redis 消息：", msg);
-// });
+// 创建客户端
+const redisClient = redis.createClient(REDIS_CONF.port, REDIS_CONF.host);
+redisClient.on("message", (msg) => {
+  console.log(">>>>>>>>>>>>>>> redis 消息：", msg);
+});
 
 /**
  *
