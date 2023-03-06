@@ -77,9 +77,9 @@ router.post("/checkToken", async (ctx, next) => {
 
     switch (normalReply.type) {
       case 'text':
-        return (ctx.body = formatTextXMLString(ToUserName, FromUserName, normalReply));
+        return (ctx.body = formatTextXMLString(ToUserName, FromUserName, normalReply?.content));
       case 'image':
-        return (ctx.body = formatImageXMLString(ToUserName, FromUserName, normalReply));
+        return (ctx.body = formatImageXMLString(ToUserName, FromUserName, normalReply?.content));
     }
 
   }
