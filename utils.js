@@ -1,6 +1,7 @@
 /**
  * 工具方法
  */
+import { text } from "stream/consumers";
 import xml2js from "xml2js";
 
 /**
@@ -40,7 +41,7 @@ export const formatXMLString = (from, to, content) => {
  * @param {*} text 原消息
  * @returns 回复的消息
  */
-export const replyTextMatchMessage = (text) => {
+export const replyTextMatchMessage = await (text) => {
   const dadTxtArr = [
     "谁是王子杰",
     "王子杰是谁",
@@ -53,5 +54,12 @@ export const replyTextMatchMessage = (text) => {
 
   if (new RegExp(dadTxtArr.join("|"), "i").test(text)) {
     return "是你爹。";
+  }
+
+  /** 生成图片 */
+  const imgReg = /^\s*(生成)?图片[:：]/;
+
+  if (imgReg.test(text)) {
+    return '生成图片测试'
   }
 };
