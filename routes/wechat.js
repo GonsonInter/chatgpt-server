@@ -9,6 +9,7 @@ import { validateWechatSignature, sendCgiMessage } from "../services/wechat.js";
 import {
   parseXMLAsync,
   formatTextXMLString,
+  formatImageXMLString,
   replyTextMatchMessage,
 } from "../utils.js";
 import {
