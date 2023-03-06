@@ -81,11 +81,17 @@ export const replyTextMatchMessage = async text => {
   const imgReg = /^\s*(生成)?图片[:：]/;
 
   if (imgReg.test(text)) {
-    const res = (await getImageByPrompt(text.replace(imgReg, ''))).data?.[0].url
-
-    return {
-      type: 'image',
-      content: res
+    try {
+      const res = (await getImageByPrompt(text.replace(imgReg, ''))).data?.[0].url
+      return {
+        type: 'image',
+        content: res
+      }
+    } catch (e) {
+      return {
+        type: 'text',
+        content: e.message
+      }
     }
   }
 };
