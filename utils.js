@@ -1,8 +1,9 @@
 /**
  * 工具方法
  */
-import { text } from "stream/consumers";
+
 import xml2js from "xml2js";
+import { getImageByPrompt } from './services/image.js'
 
 /**
  * 解析 xml
@@ -41,7 +42,7 @@ export const formatTextXMLString = (from, to, content) => {
  * @param {*} text 原消息
  * @returns 回复的消息
  */
-export const replyTextMatchMessage = await function (text) {
+export const replyTextMatchMessage = async text => {
   const dadTxtArr = [
     "谁是王子杰",
     "王子杰是谁",
@@ -60,6 +61,6 @@ export const replyTextMatchMessage = await function (text) {
   const imgReg = /^\s*(生成)?图片[:：]/;
 
   if (imgReg.test(text)) {
-    return '生成图片测试'
+    return await getImageByPrompt(text.replace(imgReg, ''))
   }
 };
