@@ -23,11 +23,11 @@ const getImageByPrompt = async (prompt, number = 1, size = "512x512") => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENAI_API_KEY}`
       },
-      body: {
+      body: JSON.stringify({
         prompt,
         n: number,
         size
-      }
+      })
     })
 
     return await res.json()
