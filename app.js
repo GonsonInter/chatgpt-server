@@ -9,6 +9,7 @@ import path from "path"
 
 import chatRouter from './routes/chat.js'
 import wechatRouter from './routes/wechat.js'
+import imageRouter from './routes/image.js'
 
 const app = new Koa()
 
@@ -41,6 +42,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(chatRouter.routes(), chatRouter.allowedMethods())
 app.use(wechatRouter.routes(), wechatRouter.allowedMethods())
+app.use(imageRouter.routes(), imageRouter.allowedMethods())
 
 app.use(async (ctx, next) => {
   try {

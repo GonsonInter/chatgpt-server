@@ -30,3 +30,6 @@ export const WECHAT_ACCESS_KEY_URL = "https://api.weixin.qq.com/cgi-bin/token";
 /** 微信客服消息调用接口 */
 export const WECHAT_CGI_URL =
   "https://api.weixin.qq.com/cgi-bin/message/custom/send";
+
+/** open ai 生成图片接口地址 */
+export const OPENAI_IMAGE_URL = 'https://api.openai.com/v1/images/generations';

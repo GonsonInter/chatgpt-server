@@ -1,5 +1,5 @@
 /**
- * @author 王子杰
+ * @author 狗剩集团
  * @description 微信验证相关方法
  */
 

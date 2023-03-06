@@ -89,4 +89,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+
+  console.log('服务器启动，端口', process.env.PORT || '3000')
 }
