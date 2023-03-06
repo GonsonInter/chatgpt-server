@@ -38,6 +38,23 @@ export const formatTextXMLString = (from, to, content) => {
 };
 
 /**
+ * 格式化消息
+ * @param {*} from 发送方
+ * @param {*} to 接收方
+ * @param {*} content 发送内容
+ */
+export const formatImageXMLString = (from, to, content) => {
+  return `<xml>
+        <ToUserName><![CDATA[${to}]]></ToUserName>
+        <FromUserName><![CDATA[${from}]]></FromUserName>
+        <CreateTime>${Date.now()}</CreateTime>
+        <MsgType><![CDATA[image]]></MsgType>
+        <Content><![CDATA[${content}]]></Content>
+    </xml>`;
+};
+
+
+/**
  * 根据接收到的消息回复，根据关键字来匹配，如果没有匹配上返回 undefined
  * @param {*} text 原消息
  * @returns 回复的消息
@@ -54,13 +71,17 @@ export const replyTextMatchMessage = async text => {
   ];
 
   if (new RegExp(dadTxtArr.join("|"), "i").test(text)) {
-    return "是你爹。";
+    return {
+      type: 'text',
+      content: '"是你爹。"'
+    };
   }
 
   /** 生成图片 */
   const imgReg = /^\s*(生成)?图片[:：]/;
 
   if (imgReg.test(text)) {
-    return await getImageByPrompt(text.replace(imgReg, ''))
+    const res = (await getImageByPrompt(text.replace(imgReg, ''))).data?.[0].url
+    return res
   }
 };

@@ -73,7 +73,14 @@ router.post("/checkToken", async (ctx, next) => {
 
   /** 如果匹配到关键字，直接回复内容 */
   if (normalReply) {
-    return (ctx.body = formatTextXMLString(ToUserName, FromUserName, normalReply));
+
+    switch (normalReply.type) {
+      case 'text':
+        return (ctx.body = formatTextXMLString(ToUserName, FromUserName, normalReply));
+      case 'image':
+        return (ctx.body = formatImageXMLString(ToUserName, FromUserName, normalReply));
+    }
+
   }
 
   const { conversationId, parentMessageId } =
