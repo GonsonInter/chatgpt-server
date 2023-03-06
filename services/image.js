@@ -15,7 +15,7 @@ const { OPENAI_API_KEY } = config
  * @param {*} number 生成数量 （1 - 10）
  * @param {*} size 图片大小
  */
-const getImageByPrompt = async (prompt, number = 1, size = "512x512") => {
+const getImageByPrompt = async (prompt, number = 1, size = "256x256") => {
   try {
     const res = await fetch(OPENAI_IMAGE_URL, {
       method: 'post',
